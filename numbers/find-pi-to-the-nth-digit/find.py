@@ -1,6 +1,6 @@
 # Spigot algorithm for finding the nth digit of pi
 # based off Unbounded Spigot Algorithms for the Digits of Pi
-# by Jeremy Gibbons[0] and digits of py by John Zelle[1]
+# by Jeremy Gibbons[0] and Digits of Pi by John Zelle[1]
 # 
 # [0] www.cs.ox.ac.uk/people/jeremy.gibbons/publications/spigot.pdf
 # [1] mail.python.org/pipermail/edu-sig/2006-July/006810.html 
@@ -25,7 +25,6 @@ def main():
 
     piArray = findPi(int(length))
     piArray = piArray[:1] + ['.'] + piArray[1:]
-
     print ("".join(piArray))
 
     return
