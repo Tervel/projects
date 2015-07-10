@@ -1,37 +1,32 @@
 # Spigot algorithm for finding the nth digit of pi
 # based off Unbounded Spigot Algorithms for the Digits of Pi
-# by Jeremy Gibbons[0]
-# [0]www.cs.ox.ac.uk/people/jeremy.gibbons/publications/spigot.pdf
+# by Jeremy Gibbons[0] and digits of py by John Zelle[1]
+# 
+# [0] www.cs.ox.ac.uk/people/jeremy.gibbons/publications/spigot.pdf
+# [1] mail.python.org/pipermail/edu-sig/2006-July/006810.html 
 
 def findPi(length):
-    piArray = [2] * length # Array of n length initialised with 2s
+    q, r, t, k, n, l = 1, 0, 1, 1, 3, 3
+    piArray = []
 
-    # For each element in piArray
-    for i in range(0, length):
-        # Multiply all elements by 10
-        for j in range(0, length):
-            piArray[j] = piArray[j] * 10
+    while True:
+        if 4*q+r-t < n*t:
+            piArray.append(str(n)) # alternative to yield
+            q, r, t, k, n, l = (10*q, 10*(r-n*t), t, k, (10*(3*q+r))//t-10*n, l)
+        else:
+            q, r, t, k, n, l = (q*k, (2*q+r)*l, t*l, k+1, (q*(7*k+2)+r*l)//(t*l), l+2)
 
-        for k in range(length - 1, 0, -1):
-            q = piArray[k] / (2 * k + 1)
-            piArray[k] %= (2 * k + 1)
-            piArray[k - 1] += q * k
-
-        print(piArray[0]/10)
-        piArray[0] %= 10
-
-    # for i in piArray:
-    #     print(i)
-
-    return
-
+        if len(piArray) == length:
+            return piArray
 
 def main():
-    pi = findPi(1000)
+    print("Enter number of digits of pi: ")
+    length = input(" >>  ")
 
-    # print(3.141592653589793)
-    # print (pi)
+    piArray = findPi(int(length))
+    piArray = piArray[:1] + ['.'] + piArray[1:]
 
+    print ("".join(piArray))
 
     return
 
